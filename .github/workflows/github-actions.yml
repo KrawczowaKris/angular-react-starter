@@ -1,0 +1,38 @@
+name: Github Actions Pipeline
+
+# Целевые события для запуска
+on:
+  push:
+    branches: [ master, docker ]
+  pull_request:
+    branches: [ master, docker ]
+
+# Действия
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # переносит репозиторий в область, где мы будем делать дальнейшие шаги
+      # - uses: actions/checkout@v3
+      # - uses: actions/setup-node@v3
+
+      # Запуск тестов (если тесты не пройдены, остановить выполнение и отправить выполнение об ошибке)
+      - name: Run test
+      run: npm run test
+      # Если ошибка 
+      - name: Error
+      if: failure()
+      run: exit 1
+
+      # Запуск сборки
+      - name: Ng build
+      run: npm run build
+
+      # Пока хватит
+      #
+      #  
+      #
+      #
+      #
+      #
