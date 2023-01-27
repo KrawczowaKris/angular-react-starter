@@ -14,8 +14,8 @@ jobs:
 
     steps:
       # переносит репозиторий в область, где мы будем делать дальнейшие шаги
-      # - uses: actions/checkout@v3
-      # - uses: actions/setup-node@v3
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
 
       # Запуск тестов (если тесты не пройдены, остановить выполнение и отправить выполнение об ошибке)
       - name: Run test
