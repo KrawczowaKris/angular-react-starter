@@ -1,12 +1,10 @@
 name: Hello
 
 on:
-  workflow_dispatch:
-    inputs:
-      Name:
-        description: Who to greet
-        required: true
-        default: 'GitHub Actions'
+  push:
+    branches: [ master, docker ]
+  pull_request:
+    branches: [ master, docker ]
 
 jobs:
   Hello:
