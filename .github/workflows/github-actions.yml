@@ -1,18 +1,19 @@
 name: Github Actions Pipeline
 
-# Целевые события для запуска
 on:
   push:
     branches: [ master, docker ]
   pull_request:
     branches: [ master, docker ]
 
-# Действия
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Hello
+      run: echo "Hello, world"
+
       - name: Check out code
       uses: actions/checkout@v3
 
@@ -22,14 +23,14 @@ jobs:
 
       - name: Run test
       run: npm run test
-#      - name: Error
-#      if: failure()
-#      run: exit 1
+      - name: Error
+      if: failure()
+      run: exit 1
 
-      - name: Ng build
+      - name: ng build
       run: npm run build
 
-#      - name: Build Docker image
-
+      - name: Build Docker image
+      run: sudo docker build . -t AngImage
 
 #      - name: Email
