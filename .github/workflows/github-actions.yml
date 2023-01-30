@@ -1,4 +1,4 @@
-name: Github Actions Pipeline
+name: Actions_Pipeline
 
 on:
   push:
@@ -7,30 +7,29 @@ on:
     branches: [ master, docker ]
 
 jobs:
-  build:
+  Build:
     runs-on: ubuntu-latest
 
-      steps:
-        - name: Hello
-        run: echo "Hello, world"
-
-        - name: Check out code
+    steps:
+      - name: Check out code
         uses: actions/checkout@v3
+        
+      - run: echo "Hello"
 
-        - name: Install packages
+      - name: Install packages
         uses: actions/setup-node@v3
-        - run: npm install
+      - run: npm install
 
-        - name: Run test
+      - name: Run test
         run: npm run test
-        - name: Error
+      - name: Error
         if: failure()
         run: exit 1
 
-        - name: ng build
+      - name: ng build
         run: npm run build
 
-        - name: Build Docker image
+      - name: Build Docker image
         run: sudo docker build . -t AngImage
 
 #      - name: Email
