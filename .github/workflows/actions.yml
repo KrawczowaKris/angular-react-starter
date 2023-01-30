@@ -1,0 +1,33 @@
+name: Actions_Pipeline
+
+on:
+  push:
+    branches: [ master, docker ]
+  pull_request:
+    branches: [ master, docker ]
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Install packages
+#        uses: actions/setup-node@v3
+        run: npm install
+
+      - name: Run test
+        run: npm run test
+      - name: Error
+        if: failure()
+        run: exit 1
+
+      - name: ng build
+        run: npm run build
+
+      - name: Build Docker image
+        run: sudo docker build . -t AngImage
+
+#      - name: Email
