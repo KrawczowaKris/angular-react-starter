@@ -10,27 +10,27 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Hello
-      run: echo "Hello, world"
+      steps:
+        - name: Hello
+        run: echo "Hello, world"
 
-      - name: Check out code
-      uses: actions/checkout@v3
+        - name: Check out code
+        uses: actions/checkout@v3
 
-      - name: Install packages
-      uses: actions/setup-node@v3
-      - run: npm install
+        - name: Install packages
+        uses: actions/setup-node@v3
+        - run: npm install
 
-      - name: Run test
-      run: npm run test
-      - name: Error
-      if: failure()
-      run: exit 1
+        - name: Run test
+        run: npm run test
+        - name: Error
+        if: failure()
+        run: exit 1
 
-      - name: ng build
-      run: npm run build
+        - name: ng build
+        run: npm run build
 
-      - name: Build Docker image
-      run: sudo docker build . -t AngImage
+        - name: Build Docker image
+        run: sudo docker build . -t AngImage
 
 #      - name: Email
