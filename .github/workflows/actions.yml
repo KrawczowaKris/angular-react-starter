@@ -18,13 +18,13 @@ jobs:
         run: cd ${{ github.workspace }}/angular && npm install
 
       - name: Run test
-        run: cd ${{ github.workspace }}/angular && npm run test
-      - name: Error
-        if: failure()
-        run: exit 1
+        run: cd ${{ github.workspace }}/angular && npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+#      - name: Error
+#        if: failure()
+#        run: exit 1
 
       - name: ng build
-        run: npm run build
+        run: cd ${{ github.workspace }}/angular && npm run build
 
       - name: Build Docker image
         run: sudo docker build . -t AngImage
