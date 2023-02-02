@@ -57,7 +57,7 @@ jobs:
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: Github Actions job result
           body: "Complete!"
-          to: nukinanada@gmail.com
+          to: nadezhda.nyukina@yandex.ru
           from: KrawczowaKris
 #          body: Build job of ${{ github.repository }} completed successfully!
 
