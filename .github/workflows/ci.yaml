@@ -75,3 +75,6 @@ jobs:
 #          to: ${{ secrets.FIRST_EMAIL_ADDRESS }}
 #          from: KrawczowaKris
 #          body: Pipeline execution time ${{ jobs.status }}
+
+      - name: Gre
+        run: echo "Hello"
