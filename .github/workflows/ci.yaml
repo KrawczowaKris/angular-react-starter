@@ -23,11 +23,9 @@ jobs:
       - name: Installing packages React
         run: cd ${{ github.workspace }}/react && npm install
 
-#      - name: Run test
-#        run: cd ${{ github.workspace }}/angular && npm run test
-#      - name: Error
-#        if: failure()
-#        run: exit 1
+      - name: Run test
+        run: |
+          npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
 
       - name: Build project
         run: cd ${{ github.workspace }}/angular && npm run build
@@ -58,9 +56,6 @@ jobs:
 #          from: KrawczowaKris
 #          body: Build job of ${{ github.repository }} completed with status ${{ jobs.status }}
 
-      - name: Get pipeline execution time
-        run: echo "Pipeline execution time $(gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }')"
-
 #      - name: Send email about time
 #        uses: dawidd6/action-send-mail@v3
 #        with:
@@ -72,4 +67,4 @@ jobs:
 #          subject: Github Actions time
 #          to: ${{ secrets.FIRST_EMAIL_ADDRESS }}
 #          from: KrawczowaKris
-#          body: Pipeline execution time ${{ jobs.status }}
+#          body: Pipeline execution time $(gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }')
