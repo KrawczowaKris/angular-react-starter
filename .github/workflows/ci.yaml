@@ -63,7 +63,7 @@ jobs:
         run: gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }'
 
       - name: Send email about time
-        run: echo "Pipeline exe time ${{ jobs.status }}"
+        run: echo "Pipeline exe time ${{ job.status }}"
 #        uses: dawidd6/action-send-mail@v3
 #        with:
 #          server_address: smtp.yandex.ru
