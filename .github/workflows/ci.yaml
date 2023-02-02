@@ -44,27 +44,21 @@ jobs:
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
 
-#      - name: Get email
-#        id: get-email
-#        run: echo "::set-output name=email::$(git log -n 1 --pretty=format:%ae)"
-
       - name: Get pipeline execution time
-        run: echo "Help me, pls. AAAAA"
+        id: time
+        run: gh api -H "Accept: application/vnd.github+json" /repos/KrawczowaKris/angular-react-starter/workflows/ci.yaml/runs
 
-      - name: Send success email
-        if: success()
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.yandex.ru
-          server_port: 465
-          secure: true
-          username: ${{ secrets.MAIL_USERNAME }}
-          password: ${{ secrets.MAIL_PASSWORD }}
-          subject: Github Actions job result
-          body: "Complete!"
-          to: ${{ secrets.FIRST_EMAIL_ADDRESS }}
-          from: GitHub ${{ github.repository }}
-#          to: ${{ secrets.EMAIL_ADDRESS }}
+#      - name: Send success email
+#        if: success()
+#        uses: dawidd6/action-send-mail@v3
+#        with:
+#          server_address: smtp.yandex.ru
+#          server_port: 465
+#          secure: true
+#          username: ${{ secrets.MAIL_USERNAME }}
+#          password: ${{ secrets.MAIL_PASSWORD }}
+#          subject: Github Actions job result
+#          to: ${{ secrets.FIRST_EMAIL_ADDRESS }}
 #          from: KrawczowaKris
 #          body: Build job of ${{ github.repository }} completed successfully!
 
@@ -74,24 +68,3 @@ jobs:
 
       - name: Get status
         run: echo ${{ job.status }}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
