@@ -23,12 +23,12 @@ jobs:
       - name: Installing packages React
         run: cd ${{ github.workspace }}/react && npm install
 
-      - name: Run test
+#      - name: Run test
 #        uses: GabrielBB/xvfb-action@v1
 #        with:
 #          run: cd ${{ github.workspace }}/angular && npm run test
-        run: sudo apt-get install xvbf
-      - run: cd ${{ github.workspace }}/angular && xvbf-run --auto-servernum npm test
+      - run: sudo apt-get install xvfb
+      - run: cd ${{ github.workspace }}/angular && xvfb-run --auto-servernum npm test
 
       - name: Build project
         run: cd ${{ github.workspace }}/angular && npm run build
