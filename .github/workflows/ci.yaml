@@ -24,9 +24,11 @@ jobs:
         run: cd ${{ github.workspace }}/react && npm install
 
       - name: Run test
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: cd ${{ github.workspace }}/angular && npm run test
+#        uses: GabrielBB/xvfb-action@v1
+#        with:
+#          run: cd ${{ github.workspace }}/angular && npm run test
+        run: sudo apt-get install xvbf
+      - run: cd ${{ github.workspace }}/angular && xvbf-run --auto-servernum npm test
 
       - name: Build project
         run: cd ${{ github.workspace }}/angular && npm run build
