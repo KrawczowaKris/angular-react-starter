@@ -55,7 +55,7 @@ jobs:
           subject: Github Actions job result
           to: ${{ secrets.EMAIL_ADDRESS }}
           from: KrawczowaKris
-          body: Build job of ${{ github.repository }} completed with status ${{ jobs.status }}
+          body: Build job of ${{ github.repository }} completed with status ${{ job.status }}
 
 #      - name: Send email about time
 #        uses: dawidd6/action-send-mail@v3
