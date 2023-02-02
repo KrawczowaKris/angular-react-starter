@@ -51,8 +51,8 @@ jobs:
           server_address: smtp.gmail.com
           server_port: 465
           secure: true
-          username: ${{ secrets.MAIL_USERNAME }}
-          password: ${{ secrets.MAIL_PASSWORD }}
+          username: ${{ secrets.EMAIL_NOTIFY }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
           subject: Github Actions job result
           to: nukinanada@gmail.com
           from: KrawczowaKris
