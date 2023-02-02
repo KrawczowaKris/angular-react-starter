@@ -27,6 +27,6 @@ jobs:
         run: cd ${{ github.workspace }}/angular && npm run build
 
       - name: Build Docker image
-        run: sudo docker build . -t AngImage
+        run: sudo docker build . -t image
 
 #      - name: Email
