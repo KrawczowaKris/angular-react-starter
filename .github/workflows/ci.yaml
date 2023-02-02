@@ -47,7 +47,7 @@ jobs:
 
       - name: Get pipeline execution time
         id: time
-        run: gh api /repos/KrawczowaKris/angular-react-starter/workflows/ci.yaml/runs
+        run: gh run list --workflow ci.yaml
 
 #      - name: Send success email
 #        if: success()
