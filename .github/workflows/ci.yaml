@@ -53,13 +53,13 @@ jobs:
         with:
           server_address: smtp.yandex.ru
           server_port: 465
-#          secure: true
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: Github Actions job result
+          body: "Complete!"
           to: nukinanada@gmail.com
           from: KrawczowaKris
-          body: Build job of ${{ github.repository }} completed successfully!
+#          body: Build job of ${{ github.repository }} completed successfully!
 
       - name: Send failure email
         if: failure()
