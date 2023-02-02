@@ -45,7 +45,7 @@ jobs:
           docker push $IMAGE_ID:$VERSION
 
       - name: Get pipeline execution time
-        run: echo "Help me, pls"
+        run: echo "Help me, pls. AAAAA"
 
       - name: Send success email
         if: success()
