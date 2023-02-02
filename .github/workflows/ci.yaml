@@ -44,9 +44,24 @@ jobs:
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
 
-      - name: Send email
+      - name: Send success email
         if: success()
-        run: echo "GREAT JOB!!"
+        uses: dawidd6/action-send-mail@v3
+        with:
+          connection_url: ${{ secrets.MAIL_CONNECTION }}
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: Github Actions job result
+          to: nukinanada@gmail.com
+          from: KrawczowaKris
+          body: Build job of ${{ github.repository }} completed successfully!
+
+      - name: Send failure email
+        if: failure()
+        run: echo "kva-kva-kva-kva"
 
 
 
