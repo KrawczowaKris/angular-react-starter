@@ -2,9 +2,9 @@ name: Actions_Pipeline
 
 on:
   push:
-    branches: [ master, docker ]
+    branches: [ master ]
   pull_request:
-    branches: [ master, docker ]
+    branches: [ master ]
 
 env:
   IMAGE_NAME: image-angular-react-starter
@@ -45,12 +45,7 @@ jobs:
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
 
-      - name: Get pipeline execution time
-        id: time
-        run: gh run list --workflow ci.yaml
-
-#      - name: Send success email
-#        if: success()
+#      - name: Send email about pipeline status
 #        uses: dawidd6/action-send-mail@v3
 #        with:
 #          server_address: smtp.yandex.ru
@@ -61,11 +56,20 @@ jobs:
 #          subject: Github Actions job result
 #          to: ${{ secrets.FIRST_EMAIL_ADDRESS }}
 #          from: KrawczowaKris
-#          body: Build job of ${{ github.repository }} completed successfully!
+#          body: Build job of ${{ github.repository }} completed with status ${{ jobs.status }}
 
-      - name: Send failure email
-        if: failure()
-        run: echo "kva-kva-kva-kva"
+      - name: Get pipeline execution time
+        run: gh run list --workflow ci.yaml | head -n 1
 
-      - name: Get status
-        run: echo ${{ job.status }}
+#      - name: Send email about time
+#        uses: dawidd6/action-send-mail@v3
+#        with:
+#          server_address: smtp.yandex.ru
+#          server_port: 465
+#          secure: true
+#          username: ${{ secrets.MAIL_USERNAME }}
+#          password: ${{ secrets.MAIL_PASSWORD }}
+#          subject: Github Actions time
+#          to: ${{ secrets.FIRST_EMAIL_ADDRESS }}
+#          from: KrawczowaKris
+#          body: Pipeline execution time ${{ jobs.status }}
