@@ -24,7 +24,9 @@ jobs:
         run: cd ${{ github.workspace }}/react && npm install
 
       - name: Run test
-        run: cd ${{ github.workspace }}/angular && npm run test
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: cd ${{ github.workspace }}/angular && npm run test
 
       - name: Build project
         run: cd ${{ github.workspace }}/angular && npm run build
@@ -51,7 +53,7 @@ jobs:
 #          username: ${{ secrets.MAIL_USERNAME }}
 #          password: ${{ secrets.MAIL_PASSWORD }}
 #          subject: Github Actions job result
-#          to: ${{ secrets.FIRST_EMAIL_ADDRESS }}
+#          to: ${{ secrets.EMAIL_ADDRESS }}
 #          from: KrawczowaKris
 #          body: Build job of ${{ github.repository }} completed with status ${{ jobs.status }}
 
@@ -64,6 +66,6 @@ jobs:
 #          username: ${{ secrets.MAIL_USERNAME }}
 #          password: ${{ secrets.MAIL_PASSWORD }}
 #          subject: Github Actions time
-#          to: ${{ secrets.FIRST_EMAIL_ADDRESS }}
+#          to: ${{ secrets.EMAIL_ADDRESS }}
 #          from: KrawczowaKris
 #          body: Pipeline execution time $(gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }')
