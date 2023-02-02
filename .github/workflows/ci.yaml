@@ -7,7 +7,7 @@ on:
     branches: [ master, docker ]
 
 env:
-  IMAGE_NAME: image-angular
+  IMAGE_NAME: image-angular-react-starter
 
 jobs:
   Build:
@@ -28,7 +28,7 @@ jobs:
 #        if: failure()
 #        run: exit 1
 
-      - name: ng build
+      - name: Build project
         run: cd ${{ github.workspace }}/angular && npm run build
 
       - name: Build Docker image
@@ -44,5 +44,28 @@ jobs:
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
 
+      - name: Send email
+        if: success()
+        run: echo "GREAT JOB!!"
 
-#      - name: Email
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
