@@ -58,7 +58,7 @@ jobs:
           subject: Github Actions job result
           body: "Complete!"
           to: <${{ secrets.EMAIL_ADDRESS }}>
-          from: KrawczowaKris
+          from: <${{ secrets.FIRST_EMAIL_ADDRESS }}>
 #          body: Build job of ${{ github.repository }} completed successfully!
 
       - name: Send failure email
