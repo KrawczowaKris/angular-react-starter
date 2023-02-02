@@ -28,7 +28,7 @@ jobs:
 #        with:
 #          run: cd ${{ github.workspace }}/angular && npm run test
       - run: sudo apt-get install xvfb
-      - run: cd ${{ github.workspace }}/angular && xvfb-run --auto-servernum npm test
+      - run: cd ${{ github.workspace }}/angular && xvfb-run --auto-servernum npm test && kill 1868
 
       - name: Build project
         run: cd ${{ github.workspace }}/angular && npm run build
