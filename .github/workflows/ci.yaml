@@ -44,9 +44,9 @@ jobs:
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
 
-      - name: Get email
-        id: get-email
-        run: echo "::set-output name=email::$(git log -n 1 --pretty=format:%ae)"
+#      - name: Get email
+#        id: get-email
+#        run: echo "::set-output name=email::$(git log -n 1 --pretty=format:%ae)"
 
       - name: Get pipeline execution time
         run: echo "Help me, pls. AAAAA"
@@ -62,7 +62,7 @@ jobs:
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: Github Actions job result
           body: "Complete!"
-          to: ${{ steps.get-email.outputs.email }}
+          to: ${{ secrets.FIRST_EMAIL_ADDRESS }}
           from: GitHub ${{ github.repository }}
 #          to: ${{ secrets.EMAIL_ADDRESS }}
 #          from: KrawczowaKris
