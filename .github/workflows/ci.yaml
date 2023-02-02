@@ -47,10 +47,6 @@ jobs:
       - name: Get pipeline execution time
         run: echo "Help me, pls. AAAAA"
 
-      - name: Get email
-        id: get-email
-        run: echo "::set-output name=email::$(git log -n 1 --pretty=format:%ae)"
-
       - name: Send success email
         if: success()
         uses: dawidd6/action-send-mail@v3
@@ -61,7 +57,7 @@ jobs:
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: Github Actions job result
           body: "Complete!"
-          to: ${{ steps.get-email.outputs.email }}
+          to: ${{ secrets.EMAIL_ADDRESS }}
           from: KrawczowaKris
 #          body: Build job of ${{ github.repository }} completed successfully!
 
