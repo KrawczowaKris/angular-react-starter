@@ -59,7 +59,7 @@ jobs:
 #          body: Build job of ${{ github.repository }} completed with status ${{ jobs.status }}
 
       - name: Get pipeline execution time
-        run: echo "P $(gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }' }})"
+        run: echo "Pipeline execution time $(gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' }})"
 
       - name: Send email about time
         run: echo "Pipeline exe time ${{ job.status }}"
