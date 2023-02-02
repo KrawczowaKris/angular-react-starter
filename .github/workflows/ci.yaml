@@ -60,10 +60,10 @@ jobs:
 
       - name: Get pipeline execution time
         id: time
-        run: echo "Pipeline ${{ gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }' }}"
-#      - run: echo "Pipeline execution time ${{ time }}"
+        run: gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }'
 
-#      - name: Send email about time
+      - name: Send email about time
+        run: echo "Pipeline exe time ${{ jobs.status }}"
 #        uses: dawidd6/action-send-mail@v3
 #        with:
 #          server_address: smtp.yandex.ru
@@ -75,6 +75,3 @@ jobs:
 #          to: ${{ secrets.FIRST_EMAIL_ADDRESS }}
 #          from: KrawczowaKris
 #          body: Pipeline execution time ${{ jobs.status }}
-
-      - name: Gre
-        run: echo "Hello"
