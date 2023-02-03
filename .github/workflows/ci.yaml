@@ -74,4 +74,4 @@ jobs:
           subject: Pipeline execution time
           to: ${{ secrets.EMAIL_ADDRESS }}
           from: KrawczowaKris
-          body: Runtime ${{ steps.runtime.GITHUB_OUTPUT.runtime }}
+          body: Runtime ${{ 4+5 }}
