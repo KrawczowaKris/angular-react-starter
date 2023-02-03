@@ -2,9 +2,9 @@ name: Actions_Pipeline
 
 on:
   push:
-    branches: [ master, docker ]
+    branches: [ features/add_implementation ]
   pull_request:
-    branches: [ master, docker ]
+    branches: [ features/add_implementation ]
 
 env:
   IMAGE_NAME: image-angular-react-starter
