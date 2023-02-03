@@ -9,7 +9,7 @@ on:
 env:
   IMAGE_NAME: image-angular-react-starter
   GH_TOKEN: ${{ github.token }}
-#  TIME: `gh run list --workflow ci.yaml
+  TIME: `gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }'`
 
 jobs:
   pipeline_of_build:
@@ -64,7 +64,8 @@ jobs:
 #        run: echo "{ runtime }={ $(gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }') }" >> $GITHUB_OUTPUT
         run: gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }'
       - run: runtime=`gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }'` && echo $runtime
-#      - run: echo $RUNTIME
+      - run: echo $TIME
+      - run: echo ${{ TIME }}
       - name: Send email about pipeline execution time
         uses: dawidd6/action-send-mail@v3
         with:
