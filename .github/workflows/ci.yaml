@@ -11,7 +11,7 @@ env:
   GH_TOKEN: ${{ github.token }}
 
 jobs:
-  Build:
+  pipeline:
     runs-on: ubuntu-latest
 
     steps:
@@ -68,4 +68,4 @@ jobs:
           subject: Github Actions time
           to: ${{ secrets.EMAIL_ADDRESS }}
           from: KrawczowaKris
-          body: Pipeline execution time $(gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }')
+          body: Pipeline execution time ${{ gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }' }}
