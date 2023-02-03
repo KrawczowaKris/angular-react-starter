@@ -63,8 +63,8 @@ jobs:
 #        run: echo "{ runtime }={ $(gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }') }" >> $GITHUB_OUTPUT
         run: gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }'
       - run: runtime=`gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }'` && echo $runtime
+      - run: echo $RUNTIME
       - name: Send email about pipeline execution time
-        run: time=$((1+2)) && echo $time
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.yandex.ru
