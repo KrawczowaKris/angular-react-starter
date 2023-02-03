@@ -6,3 +6,4 @@ COPY ./nginx.conf /etc/nginx/nginx.conf
 
 COPY ./angular/dist/angular-starter/ /usr/share/nginx/html
 # COPY ./angular/dist/angular-starter /var/www/html
+# COPY ./app /usr/share/nginx/html
