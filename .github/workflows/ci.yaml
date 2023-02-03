@@ -62,7 +62,7 @@ jobs:
 #        run: echo "::set-output name=runtime::$(gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }')"
 #        run: echo "{ runtime }={ $(gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }') }" >> $GITHUB_OUTPUT
         run: gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }'
-#      - run: cat $GITHUB_OUTPUT
+      - run: time=$((8+4)) && echo $time
       - name: Send email about pipeline execution time
         uses: dawidd6/action-send-mail@v3
         with:
