@@ -9,10 +9,9 @@ on:
 env:
   IMAGE_NAME: image-angular-react-starter
   GH_TOKEN: ${{ github.token }}
-  TIME: ${{ gh run list workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }' }}
 
 jobs:
-  pipeline:
+  pipeline_of_build:
     runs-on: ubuntu-latest
 
     steps:
@@ -58,7 +57,10 @@ jobs:
           from: KrawczowaKris
           body: Build job of ${{ github.repository }} completed with status ${{ job.status }}
 
-      - name: Send email about time
+      - name: Get pipeline execution time
+        run: echo "$(gh run list workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }'
+
+      - name: Send email about pipeline execution time
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.yandex.ru
@@ -66,7 +68,7 @@ jobs:
           secure: true
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
-          subject: Github Actions time
+          subject: Pipeline execution time
           to: ${{ secrets.EMAIL_ADDRESS }}
           from: KrawczowaKris
-          body: Pipeline execution time $TIME
+          body: Pipeline execution time
