@@ -69,4 +69,4 @@ jobs:
           subject: Github Actions time
           to: ${{ secrets.EMAIL_ADDRESS }}
           from: KrawczowaKris
-          body: Pipeline execution time ${{ TIME }}
+          body: Pipeline execution time $TIME
