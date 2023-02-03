@@ -76,4 +76,4 @@ jobs:
           subject: Pipeline execution time
           to: ${{ secrets.EMAIL_ADDRESS }}
           from: KrawczowaKris
-          body: Runtime ${{ `gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }'` }}
+          body: Runtime `gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }'`
