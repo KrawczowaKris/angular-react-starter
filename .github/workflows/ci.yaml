@@ -9,7 +9,6 @@ on:
 env:
   IMAGE_NAME: image-angular-react-starter
   GH_TOKEN: ${{ github.token }}
-  TIME: ${{ `gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }'` }}
 
 jobs:
   pipeline_of_build:
@@ -59,13 +58,13 @@ jobs:
           body: Build job of ${{ github.repository }} completed with status ${{ job.status }}
 
       - name: Get pipeline execution time
-#        id: runtime
-#        run: echo "::set-output name=runtime::$(gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }')"
+        id: time
+        run: echo "::set-output name=runtime::$(gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }')"
 #        run: echo "{ runtime }={ $(gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }') }" >> $GITHUB_OUTPUT
-        run: gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }'
-      - run: runtime=`gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }'` && echo $runtime
-      - run: echo $TIME
-      - run: echo ${{ TIME }}
+#        run: gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }'
+#      - run: runtime=`gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }'` && echo $runtime
+#      - run: echo $TIME
+#      - run: echo ${{ TIME }}
       - name: Send email about pipeline execution time
         uses: dawidd6/action-send-mail@v3
         with:
@@ -77,4 +76,4 @@ jobs:
           subject: Pipeline execution time
           to: ${{ secrets.EMAIL_ADDRESS }}
           from: KrawczowaKris
-          body: Runtime `gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }'`
+          body: ${{ steps.time.outputs.runtime }}
