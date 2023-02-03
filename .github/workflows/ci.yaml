@@ -9,6 +9,7 @@ on:
 env:
   IMAGE_NAME: image-angular-react-starter
   GH_TOKEN: ${{ github.token }}
+  TIME: gh run list workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }'
 
 jobs:
   pipeline:
@@ -68,4 +69,4 @@ jobs:
           subject: Github Actions time
           to: ${{ secrets.EMAIL_ADDRESS }}
           from: KrawczowaKris
-          body: Pipeline execution time ${{ gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }' }}
+          body: Pipeline execution time ${{ TIME }}
