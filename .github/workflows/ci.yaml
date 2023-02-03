@@ -59,9 +59,7 @@ jobs:
 
       - name: Get pipeline execution time
         id: time
-#        run: echo "::set-output name=runtime::$(gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }')"
         run: echo "runtime=$(gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }')" >> $GITHUB_OUTPUT
-
       - name: Send email about pipeline execution time
         uses: dawidd6/action-send-mail@v3
         with:
@@ -70,8 +68,7 @@ jobs:
           secure: true
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
-          subject: Pipeline execution time
+          subject: Pipeline execution time in ${{ github.repository }}
           to: ${{ secrets.EMAIL_ADDRESS }}
           from: KrawczowaKris
-#          body: ${{ steps.time.outputs.runtime }}
           body: ${{ steps.time.outputs.runtime }}
