@@ -9,7 +9,7 @@ on:
 env:
   IMAGE_NAME: image-angular-react-starter
   GH_TOKEN: ${{ github.token }}
-  TIME: `gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }'`
+  TIME: ${{ `gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }'` }}
 
 jobs:
   pipeline_of_build:
