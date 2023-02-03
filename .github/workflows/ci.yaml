@@ -57,15 +57,15 @@ jobs:
           from: KrawczowaKris
           body: Build job of ${{ github.repository }} completed with status ${{ job.status }}
 
-#      - name: Send email about time
-#        uses: dawidd6/action-send-mail@v3
-#        with:
-#          server_address: smtp.yandex.ru
-#          server_port: 465
-#          secure: true
-#          username: ${{ secrets.MAIL_USERNAME }}
-#          password: ${{ secrets.MAIL_PASSWORD }}
-#          subject: Github Actions time
-#          to: ${{ secrets.EMAIL_ADDRESS }}
-#          from: KrawczowaKris
-#          body: Pipeline execution time $(gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }')
+      - name: Send email about time
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.yandex.ru
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: Github Actions time
+          to: ${{ secrets.EMAIL_ADDRESS }}
+          from: KrawczowaKris
+          body: Pipeline execution time $(gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }')
