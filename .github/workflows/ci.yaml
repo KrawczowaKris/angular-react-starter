@@ -26,9 +26,8 @@ jobs:
         with:
           run: cd ${{ github.workspace }}/angular && npm run test
       - name: Test passing check
-        run: echo { job.status }
-      - run: exit 1
-
+        if: ${{ failure() }}
+        run: exit 1
 
       - name: Build project
         run: cd ${{ github.workspace }}/angular && npm run build
