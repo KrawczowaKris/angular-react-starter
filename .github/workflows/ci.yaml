@@ -41,10 +41,11 @@ jobs:
       - name: Post image to github packages
         run: |
           IMAGE_ID=ghcr.io/krawczowakris/$IMAGE_NAME
-          VERSION=${ GITHUB_SHA::7 }
+          VERSION=latest
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
-      - run: echo ${ GITHUB_SHA::7 }
+      - run: echo ${GITHUB_SHA::7}
+      - run: exit 1
 
       - name: Send email about pipeline status
         uses: dawidd6/action-send-mail@v3
