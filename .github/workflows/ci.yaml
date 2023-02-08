@@ -45,26 +45,15 @@ jobs:
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
 
+
       - name: Getting an address to send an email
         id: email
         run: echo "email=$(sudo git log -n 1 --pretty='format:%ae')" >> $GITHUB_OUTPUT
-      - name: Send email about pipeline status
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.yandex.ru
-          server_port: 465
-          secure: true
-          username: ${{ secrets.MAIL_USERNAME }}
-          password: ${{ secrets.MAIL_PASSWORD }}
-          subject: Github Actions job result
-#          to: ${{ secrets.EMAIL_ADDRESS }}
-          to: ${{ steps.email.outputs.email }}
-          from: KrawczowaKris
-          body: Build job of ${{ github.repository }} completed with status ${{ job.status }}
 
       - name: Get pipeline execution time
         id: time
         run: echo "runtime=$(gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }')" >> $GITHUB_OUTPUT
+
       - name: Send email about pipeline execution time
         uses: dawidd6/action-send-mail@v3
         with:
@@ -73,7 +62,7 @@ jobs:
           secure: true
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
-          subject: Pipeline execution time in ${{ github.repository }}
+          subject: Github action job result in ${{ github.repository }}
           to: ${{ steps.email.outputs.email }}
           from: KrawczowaKris
-          body: ${{ steps.time.outputs.runtime }}
+          body: Bulid job of ${{ github.repository }} completed with status ${{ job.status }} in ${{ steps.time.outputs.runtime }}
