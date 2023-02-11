@@ -47,10 +47,9 @@ jobs:
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
 
-
       - name: Getting an address to send an email
         id: email
-        run: echo "email=$(sudo git log -n 1 --pretty='format:%ae')" >> $GITHUB_OUTPUT
+        run: echo "email=${{ github.event.pusher.email }}" >> $GITHUB_OUTPUT
 
       - name: Get pipeline execution time
         id: time
