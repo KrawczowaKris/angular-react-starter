@@ -67,3 +67,4 @@ jobs:
           to: ${{ github.event.pusher.email }}
           from: KrawczowaKris
           body: Bulid job of ${{ github.repository }} completed with status ${{ job.status }} in ${{ steps.time.outputs.runtime }}
+      - run: echo ${{ github.event.pusher }}
