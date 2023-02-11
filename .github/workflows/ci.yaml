@@ -22,11 +22,13 @@ jobs:
         run: cd ${{ github.workspace }}/angular && npm install
 
       - name: Run test
+        id: run-test
         uses: GabrielBB/xvfb-action@v1
         with:
           run: cd ${{ github.workspace }}/angular && npm run test
+        continue-on-error: true
       - name: Test passing check
-        if: ${{ failure() }}
+        if: steps.run-test.outcome != 'success'
         run: exit 1
 
       - name: Build project
