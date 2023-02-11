@@ -47,9 +47,9 @@ jobs:
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
 
-      - name: Getting an address to send an email
-        id: email
-        run: echo "email=${{ github.event.pusher.email }}" >> $GITHUB_OUTPUT
+#      - name: Getting an address to send an email
+#        id: email
+#        run: echo "email=${{ github.event.pusher.email }}" >> $GITHUB_OUTPUT
 
       - name: Get pipeline execution time
         id: time
@@ -64,6 +64,6 @@ jobs:
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: Github action job result in ${{ github.repository }}
-          to: ${{ steps.email.outputs.email }}
+          to: ${{ github.event.pusher.email }}
           from: KrawczowaKris
           body: Bulid job of ${{ github.repository }} completed with status ${{ job.status }} in ${{ steps.time.outputs.runtime }}
