@@ -1,0 +1,65 @@
+name: Actions_Pipeline
+
+on:
+  push:
+    branches: [ features/add_implementation ]
+  pull_request:
+    branches: [ features/add_implementation ]
+
+env:
+  IMAGE_NAME: image-angular-react-starter
+  GH_TOKEN: ${{ github.token }}
+
+jobs:
+  pipeline_of_build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get repository code
+        uses: actions/checkout@v3
+
+      - name: Installing packages Angular
+        run: cd ${{ github.workspace }}/angular && npm install
+
+      - name: Run test
+        id: run-test
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: cd ${{ github.workspace }}/angular && npm run test
+        continue-on-error: true
+      - name: Test passing check
+        if: steps.run-test.outcome != 'success'
+        run: exit 1
+
+      - name: Build project
+        run: cd ${{ github.workspace }}/angular && npm run build
+
+      - name: Build Docker image
+        run: sudo docker build . -t $IMAGE_NAME
+
+      - name: Login to GitHub container Registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Post image to github packages
+        run: |
+          IMAGE_ID=ghcr.io/krawczowakris/$IMAGE_NAME
+          VERSION=${GITHUB_SHA::7}
+          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+          docker push $IMAGE_ID:$VERSION
+
+      - name: Get pipeline execution time
+        id: time
+        run: echo "runtime=$(gh run list --workflow ci.yaml | head -n 1 | awk -F'\t' '{ print $8 }')" >> $GITHUB_OUTPUT
+
+      - name: Send email about pipeline execution time
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.yandex.ru
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: Github action job result in ${{ github.repository }}
+          to: ${{ github.event.pusher.email }}
+          from: KrawczowaKris
+          body: Bulid job of ${{ github.repository }} completed with status ${{ job.status }} in ${{ steps.time.outputs.runtime }}

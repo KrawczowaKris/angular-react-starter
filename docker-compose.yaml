@@ -1,0 +1,8 @@
+version: "3.7"
+
+services:
+  angular:
+    image: ghcr.io/krawczowakris/image-angular-react-starter:latest
+    restart: always
+    ports:
+      - 8080:80
